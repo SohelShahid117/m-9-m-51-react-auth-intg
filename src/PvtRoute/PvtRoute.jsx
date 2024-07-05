@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { AuthContext } from "../providers/AuthProvider";
 import { Navigate } from "react-router-dom";
+import { PropTypes } from "prop-types";
 
 const PvtRoute = ({ children }) => {
   console.log(children);
@@ -16,3 +17,7 @@ const PvtRoute = ({ children }) => {
 };
 
 export default PvtRoute;
+
+PvtRoute.PropTypes = {
+  children: PropTypes.node,
+};
