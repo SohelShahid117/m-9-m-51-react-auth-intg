@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
 } from "firebase/auth";
 
 export const AuthContext = createContext(null); //1nmbr kaj
@@ -18,24 +19,21 @@ const AuthProvider = ({ children }) => {
   const signInUser = (email, password) => {
     return signInWithEmailAndPassword(auth, email, password);
   };
+  const logOut = () => {
+    return signOut(auth);
+  };
 
   useEffect(() => {
-    onAuthStateChanged(auth, (currentUser) => {
-      if (currentUser) {
-        // User is signed in, see docs for a list of available properties
-        // https://firebase.google.com/docs/reference/js/auth.user
-        // const uid = user.uid;
-        // ...
-        setUser(currentUser);
-        console.log(
-          "observing current user inside useEffect of AuthProvider is",
-          currentUser
-        );
-      } else {
-        // User is signed out
-        // ...
-      }
+    const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      setUser(currentUser);
+      console.log(
+        "observing current user inside useEffect of AuthProvider is",
+        currentUser
+      );
     });
+    return () => {
+      unSubscribe();
+    };
   }, []);
 
   //2nmbr kaj <AuthContext.Provider value={AuthInfo}>
@@ -44,6 +42,7 @@ const AuthProvider = ({ children }) => {
     user,
     createUser,
     signInUser,
+    logOut,
   };
 
   return (
