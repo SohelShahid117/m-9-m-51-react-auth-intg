@@ -1,7 +1,12 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { AuthContext } from "../../providers/AuthProvider";
 
 const Register = () => {
+  // const authInfo = useContext(AuthContext);
+  // console.log(authInfo);
+  const { createUser } = useContext(AuthContext);
+  console.log(createUser);
   const handleRegister = (e) => {
     e.preventDefault();
     console.log("handleRegister is active");
@@ -9,6 +14,13 @@ const Register = () => {
     const password = e.target.password.value;
     const name = e.target.username.value;
     console.log(email, password, name);
+    createUser(email, password)
+      .then((result) => {
+        console.log(result.user);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
   return (
     <div className="hero bg-base-200 min-h-screen">
