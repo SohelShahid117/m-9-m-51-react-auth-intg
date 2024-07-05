@@ -22,6 +22,9 @@ const Header = () => {
       <li>
         <Link to="/register">Register</Link>
       </li>
+      <li>
+        <Link to="/orders">Orders</Link>
+      </li>
     </>
   );
   return (
@@ -58,10 +61,18 @@ const Header = () => {
           <ul className="menu menu-horizontal px-1">{navLinks}</ul>
         </div>
         <div className="navbar-end">
-          {user && <span>{user.email}</span>}
-          <a className="btn" onClick={handleLogOut}>
-            Sign Out
-          </a>
+          {user ? (
+            <>
+              <span>{user.email}</span>
+              <a className="btn" onClick={handleLogOut}>
+                Sign Out
+              </a>
+            </>
+          ) : (
+            <Link to="/login">
+              <a className="btn">Login</a>
+            </Link>
+          )}
         </div>
       </div>
     </div>

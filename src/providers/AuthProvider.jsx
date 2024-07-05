@@ -12,20 +12,25 @@ export const AuthContext = createContext(null); //1nmbr kaj
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(true);
 
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
   const signInUser = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
   const logOut = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
+      setLoading(false);
       console.log(
         "observing current user inside useEffect of AuthProvider is",
         currentUser
@@ -40,6 +45,7 @@ const AuthProvider = ({ children }) => {
   const AuthInfo = {
     // name: "Sohel",
     user,
+    loading,
     createUser,
     signInUser,
     logOut,
