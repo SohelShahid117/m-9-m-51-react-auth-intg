@@ -25,6 +25,14 @@ const Header = () => {
       <li>
         <Link to="/orders">Orders</Link>
       </li>
+      {user && (
+        <>
+          <li>
+            <Link to="/profile">Profile</Link>
+            <Link to="/dashboard">Dashboard</Link>
+          </li>
+        </>
+      )}
     </>
   );
   return (

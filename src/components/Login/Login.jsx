@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { AuthContext } from "../../providers/AuthProvider";
 
 const Login = () => {
-  const { signInUser } = useContext(AuthContext);
+  const { signInUser, signInWithGoogle } = useContext(AuthContext);
   console.log(signInUser);
 
   const navigate = useNavigate();
@@ -21,6 +21,11 @@ const Login = () => {
         e.target.reset();
         navigate("/");
       })
+      .catch((err) => console.log(err));
+  };
+  const handleGoogleSignIn = () => {
+    signInWithGoogle()
+      .then((result) => console.log(result))
       .catch((err) => console.log(err));
   };
   return (
@@ -67,10 +72,13 @@ const Login = () => {
             </div>
             <div className="form-control mt-6">
               <button className="btn btn-primary">Login</button>
+              <button className="btn btn-ghost" onClick={handleGoogleSignIn}>
+                Google
+              </button>
             </div>
           </form>
           <p>
-            are you new to login ? go to <Link to="/register">Register</Link>{" "}
+            are you new to login ? go to <Link to="/register">Register</Link>
           </p>
         </div>
       </div>

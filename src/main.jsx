@@ -9,6 +9,7 @@ import Register from "./components/Register/Register";
 import AuthProvider from "./providers/AuthProvider";
 import Orders from "./components/Orders/Orders";
 import PvtRoute from "./PvtRoute/PvtRoute";
+import Profile from "./components/Profile/Profile";
 
 const router = createBrowserRouter([
   {
@@ -32,6 +33,14 @@ const router = createBrowserRouter([
         element: (
           <PvtRoute>
             <Orders></Orders>
+          </PvtRoute>
+        ),
+      },
+      {
+        path: "/profile",
+        element: (
+          <PvtRoute>
+            <Profile></Profile>,
           </PvtRoute>
         ),
       },
